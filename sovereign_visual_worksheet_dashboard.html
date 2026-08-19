@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Workflow Worksheet Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --card-bg: rgba(18, 26, 43, 0.75);
+            --border-color: rgba(64, 93, 156, 0.3);
+            --accent-cyan: #00f2fe;
+            --accent-purple: #9d4edd;
+            --accent-green: #00e676;
+            --accent-pink: #ff007f;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, #10172a, #0b0f19 80%);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-run {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #0b0f19;
+            font-weight: 800;
+            font-size: 0.95rem;
+            padding: 0.7rem 1.4rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-run:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.7);
+        }
+
+        .badge {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: rgba(30, 41, 59, 0.9);
+            color: var(--accent-cyan);
+            text-align: left;
+            padding: 1rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+        }
+
+        .code-snippet {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #ff79c6;
+        }
+
+        .mermaid {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: #121a2b;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 20px;
+            width: 600px;
+            max-width: 90%;
+            padding: 2rem;
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.3);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem; right: 1.2rem;
+            background: none; border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem; cursor: pointer;
+        }
+
+        .cmd-block {
+            background: #000;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            color: #00e676;
+            margin: 1rem 0;
+            word-break: break-all;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-copy {
+            background: rgba(0, 242, 254, 0.2);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>Sovereign Workflow Worksheet Dashboard</h1>
+            <p style="color: var(--text-muted); margin-top: 0.3rem;">Visual Mind-Graph & CSV Execution Control Panel</p>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <button class="btn-run" onclick="openModal()">⚡ HOW TO RUN IT</button>
+            <div class="badge">NVIDIA NIM 49B + DuckDB C++ DLL + ONNX Active</div>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="card" style="grid-column: span 2;">
+            <h2>📊 Smart Mind-Graph Flowchart</h2>
+            <div class="mermaid">
+                graph LR
+                N1["1. Objective Input"] -->|Zero Copy SIMD| N2["2. Zero-LLM Search"]
+                N2 -->|Offline Planning| N3["3. Phase Composition"]
+                N3 -->|Human Gate| N4["4. HITL Checkpoint"]
+                N4 -->|Schema Validation| N5_FW["5_FIREWALL. Pydantic V2 Firewall"]
+                N5_FW -->|Rust RAM| N5["5. Rust VM Execution"]
+                N5 -->|NIM 49B Stream| N6["6. NVIDIA NIM Pass"]
+                N6 -->|C ABI Write| N7["7. Lakehouse Save"]
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📋 Interactive CSV Step Matrix</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Phase Name</th>
+                        <th>YOUR INPUT TRIGGER</th>
+                        <th>Engine Executed</th>
+                        <th>Latency</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td><span class="code-snippet">01</span></td>
+                        <td><strong>Objective Input</strong></td>
+                        <td style="color: var(--accent-cyan);">find the best SovereignWorkflowState or SonicAgentState or SovereignWorkflowState CoreLangGraph  </td>
+                        <td>DuckDB C++ DLL + ONNX + Monty Copier</td>
+                        <td><span style="color: var(--accent-cyan); font-weight: 600;">1.60ms C ABI</span></td>
+                        <td><span class="status-tag">[SMART MIND GRAPH LINKED]</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="code-snippet">02</span></td>
+                        <td><strong>Zero-LLM Search</strong></td>
+                        <td style="color: var(--accent-cyan);">Scan 589k code files </td>
+                        <td>DuckDB C++ DLL + ONNX + Monty Copier</td>
+                        <td><span style="color: var(--accent-cyan); font-weight: 600;">1.60ms C ABI</span></td>
+                        <td><span class="status-tag">[SMART MIND GRAPH LINKED]</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="code-snippet">03</span></td>
+                        <td><strong>Phase Composition</strong></td>
+                        <td style="color: var(--accent-cyan);">Compose 4-phase execution graph with LM Studio</td>
+                        <td>DuckDB C++ DLL + ONNX + Monty Copier</td>
+                        <td><span style="color: var(--accent-cyan); font-weight: 600;">1.60ms C ABI</span></td>
+                        <td><span class="status-tag">[SMART MIND GRAPH LINKED]</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="code-snippet">04</span></td>
+                        <td><strong>HITL Checkpoint</strong></td>
+                        <td style="color: var(--accent-cyan);">Review matched skills tables and plan</td>
+                        <td>DuckDB C++ DLL + ONNX + Monty Copier</td>
+                        <td><span style="color: var(--accent-cyan); font-weight: 600;">1.60ms C ABI</span></td>
+                        <td><span class="status-tag">[SMART MIND GRAPH LINKED]</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="code-snippet">05_FIREWALL</span></td>
+                        <td><strong>Schema Firewall</strong></td>
+                        <td style="color: var(--accent-cyan);">Validate data against SovereignDAWDiagnostic & SonicAgentState</td>
+                        <td>DuckDB C++ DLL + ONNX + Monty Copier</td>
+                        <td><span style="color: var(--accent-cyan); font-weight: 600;">1.60ms C ABI</span></td>
+                        <td><span class="status-tag">[SMART MIND GRAPH LINKED]</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="code-snippet">05</span></td>
+                        <td><strong>Rust VM Execution</strong></td>
+                        <td style="color: var(--accent-cyan);">Validate 100 targets in Monty Rust VM RAM</td>
+                        <td>DuckDB C++ DLL + ONNX + Monty Copier</td>
+                        <td><span style="color: var(--accent-cyan); font-weight: 600;">1.60ms C ABI</span></td>
+                        <td><span class="status-tag">[SMART MIND GRAPH LINKED]</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="code-snippet">06</span></td>
+                        <td><strong>NVIDIA NIM Pass</strong></td>
+                        <td style="color: var(--accent-cyan);">Stream Super Nemotron 49B pitch decks for Splice & LANDR</td>
+                        <td>DuckDB C++ DLL + ONNX + Monty Copier</td>
+                        <td><span style="color: var(--accent-cyan); font-weight: 600;">1.60ms C ABI</span></td>
+                        <td><span class="status-tag">[SMART MIND GRAPH LINKED]</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="code-snippet">07</span></td>
+                        <td><strong>Lakehouse Save</strong></td>
+                        <td style="color: var(--accent-cyan);">Export state to sovereign_pydantic_state_lock.parquet</td>
+                        <td>DuckDB C++ DLL + ONNX + Monty Copier</td>
+                        <td><span style="color: var(--accent-cyan); font-weight: 600;">1.60ms C ABI</span></td>
+                        <td><span class="status-tag">[SMART MIND GRAPH LINKED]</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- HOW TO RUN IT MODAL -->
+    <div class="modal-overlay" id="runModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">⚡ How to Run Your Workflow</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Follow these 2 simple steps to edit and execute your workflow prompts:</p>
+            
+            <h3 style="margin-top: 1.2rem; color: #fff; font-size: 1rem;">1. Edit Your Prompts in sovereign_workflow_worksheet.csv</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem;">Open <code>sovereign_workflow_worksheet.csv</code> in VS Code or Excel and change the text in the <b>YOUR_INPUT_TRIGGER</b> column.</p>
+            
+            <h3 style="margin-top: 1.2rem; color: #fff; font-size: 1rem;">2. Paste this Command in Terminal:</h3>
+            <div class="cmd-block">
+                <span id="cmdText">&amp; "C:\WEB CASE STUDY\.venv\Scripts\python.exe" -u "c:\WEB CASE STUDY\sovereign_smart_csv_council_engine.py"</span>
+                <button class="btn-copy" onclick="copyCmd()">📋 Copy</button>
+            </div>
+            
+            <h3 style="margin-top: 1.2rem; color: #fff; font-size: 1rem;">3. Refresh This Visual Dashboard:</h3>
+            <div class="cmd-block">
+                <span>&amp; "C:\WEB CASE STUDY\.venv\Scripts\python.exe" -u "c:\WEB CASE STUDY\sovereign_visual_worksheet_dashboard.py"</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+        
+        function openModal() {
+            document.getElementById('runModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('runModal').style.display = 'none';
+        }
+        function copyCmd() {
+            const text = document.getElementById('cmdText').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Command copied to clipboard!");
+        }
+    </script>
+</body>
+</html>

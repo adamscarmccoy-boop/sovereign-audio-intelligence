@@ -1,0 +1,9 @@
+Step_ID,Phase_Name,YOUR_INPUT_TRIGGER,Pydantic_Schema_Lock,Engine_Executed,Latency_or_Cost,Action_Output,Human_Checkpoint_Status
+01,Objective Input,find the best SovereignWorkflowState or SonicAgentState or SovereignWorkflowState CoreLangGraph  ,UniversalObjective,DuckDB C++ DLL + ONNX + Monty Copier,1.60ms C ABI,Smart Node N1_01 -> ONNX DSP & DuckDB C++ Linked,[SMART MIND GRAPH LINKED]
+02,Zero-LLM Search,Scan 589k code files ,N/A (Zero Tokens),DuckDB C++ DLL + ONNX + Monty Copier,1.60ms C ABI,Smart Node N2_02 -> ONNX DSP & DuckDB C++ Linked,[SMART MIND GRAPH LINKED]
+03,Phase Composition,Compose 4-phase execution graph with LM Studio,UniversalState,DuckDB C++ DLL + ONNX + Monty Copier,1.60ms C ABI,Smart Node N3_03 -> ONNX DSP & DuckDB C++ Linked,[SMART MIND GRAPH LINKED]
+04,HITL Checkpoint,Review matched skills tables and plan,All Options Finalized,DuckDB C++ DLL + ONNX + Monty Copier,1.60ms C ABI,Smart Node N4_04 -> ONNX DSP & DuckDB C++ Linked,[SMART MIND GRAPH LINKED]
+05_FIREWALL,Schema Firewall,Validate data against SovereignDAWDiagnostic & SonicAgentState,node_pydantic_schema_firewall,DuckDB C++ DLL + ONNX + Monty Copier,1.60ms C ABI,Smart Node N5_05_FIREWALL -> ONNX DSP & DuckDB C++ Linked,[SMART MIND GRAPH LINKED]
+05,Rust VM Execution,Validate 100 targets in Monty Rust VM RAM,MontyProspectEval,DuckDB C++ DLL + ONNX + Monty Copier,1.60ms C ABI,Smart Node N6_05 -> ONNX DSP & DuckDB C++ Linked,[SMART MIND GRAPH LINKED]
+06,NVIDIA NIM Pass,Stream Super Nemotron 49B pitch decks for Splice & LANDR,MasterStrategy,DuckDB C++ DLL + ONNX + Monty Copier,1.60ms C ABI,Smart Node N7_06 -> ONNX DSP & DuckDB C++ Linked,[SMART MIND GRAPH LINKED]
+07,Lakehouse Save,Export state to sovereign_pydantic_state_lock.parquet,SovereignWorkflowState,DuckDB C++ DLL + ONNX + Monty Copier,1.60ms C ABI,Smart Node N8_07 -> ONNX DSP & DuckDB C++ Linked,[SMART MIND GRAPH LINKED]

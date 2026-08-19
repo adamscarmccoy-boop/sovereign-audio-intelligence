@@ -1,0 +1,30 @@
+# Sovereign Audio Intelligence Release Manifest
+# Clean, self-contained standalone release package for GitHub
+
+# Core Jupyter Showcase Notebook
+Sovereign_Audio_Intelligence_Engine.ipynb
+
+# Master Documentation & Guides
+SOVEREIGN_RELEASE_README_2X.md
+README.md
+REDDIT_DISTRIBUTION_CAMPAIGN_2X.md
+ENTERPRISE_OUTREACH_DECKS_2X.md
+
+# Core Engine Python Scripts
+sovereign_langgraph_intent_router.py
+sovereign_audio_deep_dive_langgraph.py
+sovereign_100_company_hard_data_workflow.py
+sovereign_cloud_verifier.py
+sovereign_deep_token_cloud_verifier.py
+sovereign_zero_copy_simd_query.py
+
+# Visual Dashboards & Datasets
+sovereign_visual_worksheet_dashboard.html
+sovereign_workflow_worksheet.csv
+sovereign_100_company_hard_data_matrix.parquet
+sovereign_100_company_hard_data_matrix.json
+audio_deep_dive_report.parquet
+sovereign_cloud_verified_attestation.json
+
+# C++ Kernel Source
+sovereign_kernel.cpp
