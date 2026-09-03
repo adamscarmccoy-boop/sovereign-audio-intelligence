@@ -22,7 +22,7 @@ import urllib.error
 import duckdb
 from pathlib import Path
 
-WORKSPACE_DIR = r"C:\WEB CASE STUDY"
+WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
 PARQUET_FILE = os.path.join(WORKSPACE_DIR, "sovereign_100_company_hard_data_matrix.parquet")
 ATTESTATION_OUT = os.path.join(WORKSPACE_DIR, "sovereign_cloud_verified_attestation.json")
 NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY", "")
@@ -41,9 +41,10 @@ with open(PARQUET_FILE, "rb") as f:
     sha256_hash = hashlib.sha256(parquet_bytes).hexdigest()
 
 con = duckdb.connect()
-total_records = con.execute(f"SELECT count(*) FROM read_parquet('{PARQUET_FILE}')").fetchone()[0]
-total_valuation = con.execute(f"SELECT sum(contract_value_usd) FROM read_parquet('{PARQUET_FILE}')").fetchone()[0]
-top_matches = con.execute(f"SELECT company_name, sector, system_measured_latency, cost_reduction_pct FROM read_parquet('{PARQUET_FILE}') LIMIT 5").fetchall()
+parquet_path = PARQUET_FILE.replace('\\', '/')
+total_records = con.execute(f"SELECT count(*) FROM read_parquet('{parquet_path}')").fetchone()[0]
+total_valuation = con.execute(f"SELECT sum(contract_value_usd) FROM read_parquet('{parquet_path}')").fetchone()[0]
+top_matches = con.execute(f"SELECT company_name, sector, system_measured_latency, cost_reduction_pct FROM read_parquet('{parquet_path}') LIMIT 5").fetchall()
 
 print(f" [OK] Local Parquet Verified: {total_records} Companies | Total Value: ${total_valuation:,} USD", flush=True)
 print(f" [OK] Local Data SHA256 Hash: {sha256_hash}", flush=True)

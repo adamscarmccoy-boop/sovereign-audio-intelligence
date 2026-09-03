@@ -28,10 +28,10 @@ import pyarrow.parquet as pq
 import duckdb
 from langgraph.graph import StateGraph, END
 
-WORKSPACE_DIR = r"C:\WEB CASE STUDY"
-REKORDBOX_XML = r"E:\Rekordbox_2_ADAMSCARMCCOY_libray.xml"
-ONNX_DSP_MODEL = r"C:\WEB CASE STUDY\real_data_brain.onnx"
-ORT_DLL_PATH = r"C:\WEB CASE STUDY\cpp-core\vendor\ort\onnxruntime-win-x64-1.20.1\lib\onnxruntime.dll"
+WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
+REKORDBOX_XML = os.path.join(WORKSPACE_DIR, "rekordbox_master_library.xml")
+ONNX_DSP_MODEL = os.path.join(WORKSPACE_DIR, "real_data_brain.onnx")
+ORT_DLL_PATH = os.path.join(WORKSPACE_DIR, "onnxruntime.dll")
 
 print("================================================================================", flush=True)
 print(" [AUDIO DEEP DIVE] INITIALIZING SEPARATE AUDIO LANGGRAPH DSP PIPELINE", flush=True)

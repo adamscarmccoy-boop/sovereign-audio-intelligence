@@ -1,0 +1,36 @@
+# Python & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments & IDEs
+.venv/
+venv/
+ENV/
+.env
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Testing & Caches
+.pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Generated Output & Artifacts (Keep source files clean)
+sovereign_100_company_hard_data_matrix.json
+audio_deep_dive_report.json
+sovereign_cloud_verified_attestation.json
+sovereign_full_cloud_attestation_report.json
+codebase_dependency_map.json
+codebase_dependency_map.parquet
+
+# Binaries & Vendor DLLs (optional/platform specific)
+*.dll
+*.exe
+*.dylib

@@ -17,9 +17,9 @@ import glob
 from pathlib import Path
 import duckdb
 
-WORKSPACE_DIR = r"C:\WEB CASE STUDY"
-WORKSHEET_CSV = r"C:\WEB CASE STUDY\sovereign_workflow_worksheet.csv"
-OUTPUT_HTML = r"C:\WEB CASE STUDY\sovereign_visual_worksheet_dashboard.html"
+WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
+WORKSHEET_CSV = os.path.join(WORKSPACE_DIR, "sovereign_workflow_worksheet.csv")
+OUTPUT_HTML = os.path.join(WORKSPACE_DIR, "sovereign_visual_worksheet_dashboard.html")
 
 print("================================================================================", flush=True)
 print(" [VISUAL DASHBOARD] GENERATING VISUAL HTML WORKSHEET DASHBOARD WITH RUN BUTTON", flush=True)
@@ -27,7 +27,8 @@ print("=========================================================================
 
 # Read CSV data
 con = duckdb.connect()
-rows = con.execute(f"SELECT * FROM read_csv_auto('{WORKSHEET_CSV}')").df().to_dict(orient="records")
+csv_path = WORKSHEET_CSV.replace('\\', '/')
+rows = con.execute(f"SELECT * FROM read_csv_auto('{csv_path}')").df().to_dict(orient="records")
 
 # Build HTML template
 html_content = f"""<!DOCTYPE html>
@@ -326,13 +327,13 @@ html_content += """
             
             <h3 style="margin-top: 1.2rem; color: #fff; font-size: 1rem;">2. Paste this Command in Terminal:</h3>
             <div class="cmd-block">
-                <span id="cmdText">&amp; "C:\WEB CASE STUDY\.venv\Scripts\python.exe" -u "c:\WEB CASE STUDY\sovereign_smart_csv_council_engine.py"</span>
+                <span id="cmdText">python sovereign_100_company_hard_data_workflow.py</span>
                 <button class="btn-copy" onclick="copyCmd()">📋 Copy</button>
             </div>
             
             <h3 style="margin-top: 1.2rem; color: #fff; font-size: 1rem;">3. Refresh This Visual Dashboard:</h3>
             <div class="cmd-block">
-                <span>&amp; "C:\WEB CASE STUDY\.venv\Scripts\python.exe" -u "c:\WEB CASE STUDY\sovereign_visual_worksheet_dashboard.py"</span>
+                <span>python sovereign_visual_worksheet_dashboard.py</span>
             </div>
         </div>
     </div>

@@ -26,7 +26,7 @@ import pyarrow.parquet as pq
 from openai import OpenAI
 from pydantic import BaseModel, Field
 
-WORKSPACE_DIR = r"C:\WEB CASE STUDY"
+WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
 PARQUET_FILE = os.path.join(WORKSPACE_DIR, "sovereign_100_company_hard_data_matrix.parquet")
 CODE_METRICS_PARQUET = os.path.join(WORKSPACE_DIR, "workspace_metrics.parquet")
 OUTPUT_DEEP_REPORT = os.path.join(WORKSPACE_DIR, "sovereign_full_cloud_attestation_report.json")
@@ -39,7 +39,10 @@ print("=========================================================================
 
 # 1. Ingest Full 100 Companies from Parquet
 con = duckdb.connect()
-all_100_companies = con.execute(f"SELECT * FROM read_parquet('{PARQUET_FILE}')").df().to_dict(orient="records")
+parquet_path = PARQUET_FILE.replace('\\', '/')
+if not os.path.exists(PARQUET_FILE):
+    from sovereign_100_company_hard_data_workflow import FULL_100_TARGETS
+all_100_companies = con.execute(f"SELECT * FROM read_parquet('{parquet_path}')").df().to_dict(orient="records")
 
 # 2. Ingest Aggregated Code Metrics (589,579 rows)
 total_code_lines = 179938490
@@ -57,8 +60,8 @@ print(f" [OK] Dataset SHA256: {sha256_hash}", flush=True)
 
 # 4. Prepare OpenAI SDK Client for NVIDIA NIM Cloud
 client = OpenAI(
-    base_url="https://integrate.api.nvidia.com/v1",
-    api_key=NVIDIA_API_KEY if NVIDIA_API_KEY else "dummy_key"
+    base_url = "https://integrate.api.nvidia.com/v1",
+    api_key=NVIDIA_API_KEY if NVIDIA_API_KEY else "dummy_key",
 )
 
 # 5. Format Deep Payload for Model Context
@@ -104,14 +107,14 @@ cloud_analysis_text = ""
 try:
     if NVIDIA_API_KEY:
         response = client.chat.completions.create(
-            model="nvidia/llama-3.3-nemotron-super-49b-v1",
+            model = "nvidia/llama-3.3-nemotron-super-49b-v1",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_content}
             ],
             temperature=0.2,
             max_tokens=2048,
-            stream=True
+            stream=True,
         )
         
         print("\n================================================================================", flush=True)

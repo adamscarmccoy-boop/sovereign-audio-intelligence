@@ -28,7 +28,7 @@ from pathlib import Path
 from typing import List, Dict, Any
 from pydantic import BaseModel, Field
 
-WORKSPACE_DIR = r"C:\WEB CASE STUDY"
+WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
 PARQUET_OUTPUT = os.path.join(WORKSPACE_DIR, "sovereign_100_company_hard_data_matrix.parquet")
 JSON_OUTPUT = os.path.join(WORKSPACE_DIR, "sovereign_100_company_hard_data_matrix.json")
 NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY", "")

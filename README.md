@@ -11,6 +11,24 @@
 
 ---
 
+## 🚀 Quick Start & Installation
+
+### 1. Prerequisites
+* **Python**: `3.10+`
+* **Optional**: NVIDIA NIM API key for cloud LLM attestation (`NVIDIA_API_KEY`)
+
+### 2. Setup
+```bash
+# Clone the repository
+git clone https://github.com/your-username/sovereign-audio-intelligence.git
+cd sovereign-audio-intelligence
+
+# Install Python dependencies
+pip install -r requirements.txt
+```
+
+---
+
 ## ⚡ Verified Benchmark Highlights
 
 | Engine Module | Underlying Tech | Measured Latency / Speed | Performance Gain |
@@ -23,9 +41,9 @@
 
 ---
 
-## 🧪 Automated Pytest Suite (100% Passed)
+## 🧪 Running Benchmarks & Verification Suite
 
-To run the automated verification suite:
+### Automated Pytest Suite (100% Passed)
 ```bash
 pytest test_sovereign_suite.py -v
 ```
@@ -36,6 +54,27 @@ test_sovereign_suite.py::test_cryptographic_sha256_checksum PASSED       [ 50%]
 test_sovereign_suite.py::test_langgraph_intent_router_latency_and_accuracy PASSED [ 75%]
 test_sovereign_suite.py::test_audio_dsp_mastering_pipeline PASSED        [100%]
 ============================== 4 passed in 1.82s ==============================
+```
+
+### Standalone Execution Modules
+```bash
+# Scan your own custom directory (audio stems, code, or datasets)
+python scan_custom_workspace.py --path "/path/to/your/audio_or_code"
+
+# 100-Company Lakehouse Data Ingestion & Cloud Attestation
+python sovereign_100_company_hard_data_workflow.py
+
+# 5-Domain LangGraph Intent Router Demo (<150us)
+python sovereign_langgraph_intent_router.py
+
+# Audio DSP Deep Dive LangGraph Pipeline
+python sovereign_audio_deep_dive_langgraph.py
+
+# Zero-Copy SIMD Query over Lakehouse Datasets
+python sovereign_zero_copy_simd_query.py
+
+# Generate Visual HTML Worksheet Dashboard
+python sovereign_visual_worksheet_dashboard.py
 ```
 
 ---
@@ -53,3 +92,10 @@ Open [`Sovereign_Audio_Intelligence_Engine.ipynb`](Sovereign_Audio_Intelligence_
 ## 🔒 Cryptographic Certification
 * **Dataset SHA-256:** `f3e88f5277c8a30870070c1151dbc7183c9e28133ccd85da55d5f185d3512a26`
 * **NVIDIA NIM Cloud Oracle:** Attested with 100% confidence over 100 enterprise prospects ($78,125,000 pipeline).
+
+---
+
+## 📜 License
+
+Distributed under the [MIT License](LICENSE).
+

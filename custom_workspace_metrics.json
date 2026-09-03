@@ -1,0 +1,142 @@
+{
+  "summary": {
+    "total_files": 96,
+    "total_size_mb": 0.44,
+    "total_lines_of_code": 3809.0,
+    "total_unique_extensions": 12
+  },
+  "top_extensions": [
+    {
+      "extension": "no_ext",
+      "file_count": 47,
+      "size_mb": 0.09,
+      "total_lines": 0.0
+    },
+    {
+      "extension": "sample",
+      "file_count": 14,
+      "size_mb": 0.03,
+      "total_lines": 0.0
+    },
+    {
+      "extension": "pyc",
+      "file_count": 9,
+      "size_mb": 0.08,
+      "total_lines": 0.0
+    },
+    {
+      "extension": "py",
+      "file_count": 9,
+      "size_mb": 0.07,
+      "total_lines": 1735.0
+    },
+    {
+      "extension": "md",
+      "file_count": 4,
+      "size_mb": 0.03,
+      "total_lines": 645.0
+    },
+    {
+      "extension": "parquet",
+      "file_count": 3,
+      "size_mb": 0.01,
+      "total_lines": 0.0
+    },
+    {
+      "extension": "json",
+      "file_count": 3,
+      "size_mb": 0.07,
+      "total_lines": 1371.0
+    },
+    {
+      "extension": "txt",
+      "file_count": 2,
+      "size_mb": 0.0,
+      "total_lines": 0.0
+    },
+    {
+      "extension": "html",
+      "file_count": 2,
+      "size_mb": 0.04,
+      "total_lines": 0.0
+    },
+    {
+      "extension": "cpp",
+      "file_count": 1,
+      "size_mb": 0.0,
+      "total_lines": 49.0
+    }
+  ],
+  "largest_files": [
+    {
+      "file_name": "sovereign_100_company_hard_data_matrix.json",
+      "rel_path": "sovereign_100_company_hard_data_matrix.json",
+      "extension": "json",
+      "size_kb": 63.16,
+      "line_count": 1202
+    },
+    {
+      "file_name": "sovereign_fancy_pitch_deck.html",
+      "rel_path": "sovereign_fancy_pitch_deck.html",
+      "extension": "html",
+      "size_kb": 21.88,
+      "line_count": 0
+    },
+    {
+      "file_name": "Sovereign_Audio_Intelligence_Engine.ipynb",
+      "rel_path": "Sovereign_Audio_Intelligence_Engine.ipynb",
+      "extension": "ipynb",
+      "size_kb": 15.59,
+      "line_count": 0
+    },
+    {
+      "file_name": "sovereign_visual_worksheet_dashboard.html",
+      "rel_path": "sovereign_visual_worksheet_dashboard.html",
+      "extension": "html",
+      "size_kb": 14.97,
+      "line_count": 0
+    },
+    {
+      "file_name": "test_sovereign_suite.cpython-312-pytest-9.1.1.pyc",
+      "rel_path": "__pycache__\\test_sovereign_suite.cpython-312-pytest-9.1.1.pyc",
+      "extension": "pyc",
+      "size_kb": 13.54,
+      "line_count": 0
+    },
+    {
+      "file_name": "sovereign_visual_worksheet_dashboard.cpython-312.pyc",
+      "rel_path": "__pycache__\\sovereign_visual_worksheet_dashboard.cpython-312.pyc",
+      "extension": "pyc",
+      "size_kb": 13.15,
+      "line_count": 0
+    },
+    {
+      "file_name": "sovereign_visual_worksheet_dashboard.py",
+      "rel_path": "sovereign_visual_worksheet_dashboard.py",
+      "extension": "py",
+      "size_kb": 12.34,
+      "line_count": 361
+    },
+    {
+      "file_name": "sovereign_audio_deep_dive_langgraph.cpython-312.pyc",
+      "rel_path": "__pycache__\\sovereign_audio_deep_dive_langgraph.cpython-312.pyc",
+      "extension": "pyc",
+      "size_kb": 11.55,
+      "line_count": 0
+    },
+    {
+      "file_name": "sovereign_langgraph_intent_router.py",
+      "rel_path": "sovereign_langgraph_intent_router.py",
+      "extension": "py",
+      "size_kb": 11.0,
+      "line_count": 264
+    },
+    {
+      "file_name": "sovereign_100_company_hard_data_workflow.cpython-312.pyc",
+      "rel_path": "__pycache__\\sovereign_100_company_hard_data_workflow.cpython-312.pyc",
+      "extension": "pyc",
+      "size_kb": 10.11,
+      "line_count": 0
+    }
+  ]
+}

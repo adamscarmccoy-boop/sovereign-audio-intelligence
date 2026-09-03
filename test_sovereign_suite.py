@@ -18,23 +18,31 @@ import pytest
 import duckdb
 import pyarrow.parquet as pq
 
-WORKSPACE_DIR = r"C:\WEB CASE STUDY"
+WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
 PARQUET_FILE = os.path.join(WORKSPACE_DIR, "sovereign_100_company_hard_data_matrix.parquet")
 AUDIO_PARQUET = os.path.join(WORKSPACE_DIR, "audio_deep_dive_report.parquet")
 
+def ensure_parquet_matrix():
+    if not os.path.exists(PARQUET_FILE):
+        from sovereign_100_company_hard_data_workflow import FULL_100_TARGETS, PARQUET_OUTPUT, JSON_OUTPUT
+        # Matrix is auto-generated during module execution or setup
+
 def test_100_company_parquet_integrity():
     """Verify 100-company dataset integrity, record count, and non-empty valuations."""
+    ensure_parquet_matrix()
     assert os.path.exists(PARQUET_FILE), "Parquet matrix file must exist on disk"
     
     con = duckdb.connect()
-    count = con.execute(f"SELECT count(*) FROM read_parquet('{PARQUET_FILE}')").fetchone()[0]
-    total_val = con.execute(f"SELECT sum(contract_value_usd) FROM read_parquet('{PARQUET_FILE}')").fetchone()[0]
+    parquet_path = PARQUET_FILE.replace('\\', '/')
+    count = con.execute(f"SELECT count(*) FROM read_parquet('{parquet_path}')").fetchone()[0]
+    total_val = con.execute(f"SELECT sum(contract_value_usd) FROM read_parquet('{parquet_path}')").fetchone()[0]
     
     assert count == 100, f"Expected 100 company records, found {count}"
     assert total_val == 78125000, f"Expected $78,125,000 total pipeline value, got {total_val}"
 
 def test_cryptographic_sha256_checksum():
     """Ensure dataset SHA256 checksum matches official attested hash."""
+    ensure_parquet_matrix()
     with open(PARQUET_FILE, "rb") as f:
         sha256 = hashlib.sha256(f.read()).hexdigest()
     
