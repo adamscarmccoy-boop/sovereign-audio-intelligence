@@ -97,5 +97,5 @@ Open [`Sovereign_Audio_Intelligence_Engine.ipynb`](Sovereign_Audio_Intelligence_
 
 ## 📜 License
 
-Distributed under the [MIT License](LICENSE).
+Distributed under the [Apache License 2.0](LICENSE).
 
