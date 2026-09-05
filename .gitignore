@@ -1,36 +1,17 @@
-# Python & Bytecode
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
+# Xcode user data & workspace paths
+*.xcuserstate
+project.xcworkspace/xcuserdata/
+xcuserdata/
 
-# Environments & IDEs
+# Local Python/AI environment caches
 .venv/
 venv/
 ENV/
-.env
-.idea/
-.vscode/
-*.swp
-*.swo
-.DS_Store
-Thumbs.db
-
-# Testing & Caches
-.pytest_cache/
-.coverage
-htmlcov/
+*.pyc
+__pycache__/
 .ipynb_checkpoints/
+.DS_Store
 
-# Generated Output & Artifacts (Keep source files clean)
-sovereign_100_company_hard_data_matrix.json
-audio_deep_dive_report.json
-sovereign_cloud_verified_attestation.json
-sovereign_full_cloud_attestation_report.json
-codebase_dependency_map.json
-codebase_dependency_map.parquet
-
-# Binaries & Vendor DLLs (optional/platform specific)
-*.dll
-*.exe
-*.dylib
+# Hidden localized workspace notebook trackers
+*.notebook.local
+*.log
