@@ -1,3 +1,11 @@
+---
+title: Sovereign Audio Intelligence & Local Edge AI Pipelines
+description: Hardened production architectures for secure, zero-cloud audio systems.
+keywords: [CoreAudio, AVFoundation, Edge AI, CoreML, Local LLM, Sovereign AI, On-Device Inference, Apple Silicon]
+author: Adam Scar McCoy
+category: Software Architecture
+---
+
 # Sovereign Audio Intelligence
 
 > **Zero Cloud Dependency. Sub-Millisecond Acoustic Feature Extraction. Local Edge AI.**
