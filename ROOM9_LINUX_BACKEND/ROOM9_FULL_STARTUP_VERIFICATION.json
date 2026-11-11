@@ -1,0 +1,74 @@
+{
+  "utc": "2026-11-11T08:13:14.209738+00:00",
+  "source": "fresh run of packaged binary with original Drive/mounted data",
+  "driver": "DuckDB 2.0.0 C API, same connection through startup and subsequent query",
+  "library_dlopen_success": 8,
+  "duckdb_extensions_success": [
+    "autocomplete",
+    "core_functions",
+    "icu",
+    "json",
+    "parquet"
+  ],
+  "registered_udfs": [
+    "sovereign_native_dot4",
+    "sovereign_native_lanes",
+    "sovereign_native_models",
+    "sovereign_onnx_decoder_first",
+    "sovereign_onnx_projection_first",
+    "sovereign_onnx_rotator_first",
+    "sovereign_onnx_steerer_first"
+  ],
+  "six_file_based_temporary_views": [
+    "audio_manifest",
+    "metadata_vectors",
+    "audio_vibe",
+    "core_memory",
+    "onnx_actor_map",
+    "onnx_brain_integration"
+  ],
+  "key_results": {
+    "mounted_source_counts": [
+      [
+        "{\"manifest\":500,\"metadata\":200,\"vibe\":1013,\"memory\":3560,\"onnx_maps\":1,\"brain_docs\":1}"
+      ]
+    ],
+    "sql_native_kernel": [
+      [
+        "70.0"
+      ]
+    ],
+    "sql_native_omni": [
+      [
+        "{\"models\":9006,\"lanes\":3633}"
+      ]
+    ],
+    "sql_native_onnx": [
+      [
+        "0.50148165",
+        "-0.011847281",
+        "0.0072368905",
+        "0.31530622"
+      ]
+    ],
+    "json_actor_dispatch": [
+      [
+        "{\"actor\":\"sovereign_native_dot4\",\"result\":70.0}"
+      ]
+    ],
+    "interactive_sql": [
+      [
+        "{\"actor\":\"sovereign_onnx_projection_first\",\"output\":0.5014816522598267}"
+      ]
+    ]
+  },
+  "known_unavailable_extensions": [
+    "extension_lance",
+    "extension_vss",
+    "extension_ai"
+  ],
+  "original_507MB_duckdb_opened": false,
+  "native_lance_ann_executed": false,
+  "full_original_actor_registry_booted": false,
+  "note": "No replacement tables created; TEMP VIEWs expose source files. Native UDFs register for this persistent session; automated historical bindings cannot be asserted without original lakehouse."
+}
