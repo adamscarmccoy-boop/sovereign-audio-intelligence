@@ -1,0 +1,24 @@
+{
+  "title":"LEGION Ableton destination-first execution graph",
+  "version":"2026-11-11.2",
+  "final_user_action":{
+    "name":"insert_verified_sovereign_audio_into_live",
+    "trigger":"AudioTrack or empty ClipSlot context menu in Ableton beta",
+    "actor":"Ableton Extensions SDK 1.0.0 AudioTrack.createAudioClip / ClipSlot.createAudioClip",
+    "input_schema":"contracts/placement.schema.json",
+    "output":"real Ableton AudioClip (manual selection, undoable)",
+    "verified":"SDK types compiled; NOT executed inside Live"
+  },
+  "reverse_dependencies":[
+    {"stage":5,"role":"Live clip creation","input":"legion.audio.placement.v1","requires":"user selection & existing local file","status":"SDK method verified; Windows execution pending"},
+    {"stage":4,"role":"loopback candidate chooser","input":"legion.audio.candidate.v1","provides":"placement selection","status":"HTTP/test verified; modal in Live pending"},
+    {"stage":3,"role":"Sovereign actor candidate export","input":"existing DuckDB/Lance ranking outputs","provides":"catalog JSON with verified file paths","status":"adapter implemented, live ranker unbound"},
+    {"stage":2,"role":"DSP/ONNX feature/embedding actors","input":"existing registered analysis actor & file identity","provides":"real BPM/key/embeddings and relevance scores","status":"historical actor binding unverified; no fabricated measurements"},
+    {"stage":1,"role":"filesystem discovery daemon","input":"stable WAV/AIFF/FLAC/etc change events","provides":"legion.audio.file.v1 JSONL outbox","status":"watcher code available; workstation run pending"},
+    {"stage":0,"role":"audio files and Ableton project references","input":"original Windows drives, live clip filepath","provides":"original audio, no copies","status":"500 manifest metadata rows available;  E drive not mounted in sandbox"}
+  ],
+  "no_schema_changes":true,
+  "no_asd_changes":true,
+  "no_sdk_archive_distribution":true,
+  "no_public_control_plane":true
+}
