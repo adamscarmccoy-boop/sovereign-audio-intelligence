@@ -1,0 +1,1 @@
+{"schema":"legion.audio.file.v1","event":"audio_file_discovered","path":"E:\\music\\EXAMPLE.wav","bytes":1000000,"extension":".wav","last_modified_utc":"2026-11-11T08:00:00Z","fingerprint":"1000000:638984160000000000","detected_utc":"2026-11-11T08:00:03Z","source":"legion_windows_fs_watcher","action":"match_existing_registry_then_dispatch"}
