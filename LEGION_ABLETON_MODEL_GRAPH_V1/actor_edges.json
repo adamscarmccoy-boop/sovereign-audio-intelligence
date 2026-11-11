@@ -1,0 +1,30 @@
+[
+  {
+    "task": "insert_audio_arrangement",
+    "method": "trackCreateAudioClip",
+    "object_type": "AudioTrack",
+    "sdk_member": "createAudioClip",
+    "runtime": "ableton_sdk"
+  },
+  {
+    "task": "insert_audio_session",
+    "method": "clipslotCreateAudioClip",
+    "object_type": "ClipSlot",
+    "sdk_member": "createAudioClip",
+    "runtime": "ableton_sdk"
+  },
+  {
+    "task": "read_audio_path",
+    "method": "audioclipGetFilePath",
+    "object_type": "AudioClip",
+    "sdk_member": "filePath",
+    "runtime": "ableton_sdk"
+  },
+  {
+    "task": "set_song_tempo",
+    "method": "songSetTempo",
+    "object_type": "Song",
+    "sdk_member": "tempo",
+    "runtime": "ableton_sdk"
+  }
+]
