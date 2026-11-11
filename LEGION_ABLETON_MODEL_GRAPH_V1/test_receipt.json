@@ -1,0 +1,86 @@
+{
+  "theory": "full_sdk_graph_in_DuckDB -> bounded capability -> pydantic_core_Rust -> SDK-runtime",
+  "sdk_source": "@ableton-extensions/sdk 1.0.0-beta.0 package/dist/index.d.mts",
+  "duckdb": "native C API via libduckdb.so; in-memory TEMP VIEW only",
+  "sdk_capability_rows": 250,
+  "sdk_host_methods": 126,
+  "pydantic_core_version": "2.46.5",
+  "pydantic_core_schema_validators": 6,
+  "full_capability_registry_validated_in_rust": 250,
+  "actor_edges_validated_in_rust": 4,
+  "llm_entire_graph_exposed": false,
+  "llm_calls": 0,
+  "execution": "MOCK ONLY; no Live Beta or original Windows DuckDB",
+  "latency_ms": 75.88,
+  "executions": [
+    {
+      "task": "insert_audio_arrangement",
+      "selected_tool": "trackCreateAudioClip",
+      "transition": [
+        "intent_validated",
+        "duckdb_capability_resolved",
+        "pydantic_core_validated",
+        "sdk_dispatch_pending",
+        "mock_runtime_executed"
+      ],
+      "result": {
+        "status": "mock_executed",
+        "created_clip": {
+          "file_path": "E:\\music\\bass_loop_128.wav",
+          "start_time": 16.0
+        }
+      },
+      "llm_tools_sent": 0
+    },
+    {
+      "task": "insert_audio_session",
+      "selected_tool": "clipslotCreateAudioClip",
+      "transition": [
+        "intent_validated",
+        "duckdb_capability_resolved",
+        "pydantic_core_validated",
+        "sdk_dispatch_pending",
+        "mock_runtime_executed"
+      ],
+      "result": {
+        "status": "mock_executed",
+        "created_clip": {
+          "file_path": "E:\\music\\kick_128.wav"
+        }
+      },
+      "llm_tools_sent": 0
+    },
+    {
+      "task": "read_audio_path",
+      "selected_tool": "audioclipGetFilePath",
+      "transition": [
+        "intent_validated",
+        "duckdb_capability_resolved",
+        "pydantic_core_validated",
+        "sdk_dispatch_pending",
+        "mock_runtime_executed"
+      ],
+      "result": {
+        "status": "mock_executed",
+        "file_path": "E:\\\\music\\\\bass_ref.wav"
+      },
+      "llm_tools_sent": 0
+    },
+    {
+      "task": "set_song_tempo",
+      "selected_tool": "songSetTempo",
+      "transition": [
+        "intent_validated",
+        "duckdb_capability_resolved",
+        "pydantic_core_validated",
+        "sdk_dispatch_pending",
+        "mock_runtime_executed"
+      ],
+      "result": {
+        "status": "mock_executed",
+        "tempo": 128.0
+      },
+      "llm_tools_sent": 0
+    }
+  ]
+}
