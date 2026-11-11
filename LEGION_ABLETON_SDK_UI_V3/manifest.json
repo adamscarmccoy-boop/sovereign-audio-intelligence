@@ -1,0 +1,7 @@
+{
+  "name": "legion-sovereign-audio",
+  "author": "Adam Scar McCoy",
+  "entry": "dist/extension.js",
+  "version": "0.3.0",
+  "minimumApiVersion": "1.0.0"
+}
