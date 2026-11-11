@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"LEGION stable audio filesystem observation",
+  "type":"object",
+  "properties":{
+    "schema":{"const":"legion.audio.file.v1"},
+    "event":{"const":"audio_file_discovered"},
+    "path":{"type":"string","minLength":3},
+    "bytes":{"type":"integer","minimum":0},
+    "extension":{"type":"string"},
+    "last_modified_utc":{"type":"string"},
+    "fingerprint":{"type":"string"},
+    "detected_utc":{"type":"string"},
+    "source":{"const":"legion_windows_fs_watcher"},
+    "action":{"const":"match_existing_registry_then_dispatch"}
+  },
+  "required":["schema","event","path","bytes","extension","last_modified_utc","fingerprint","detected_utc","source","action"],
+  "additionalProperties":false
+}
