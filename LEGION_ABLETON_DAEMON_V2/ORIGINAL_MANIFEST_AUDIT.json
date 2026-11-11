@@ -1,0 +1,16 @@
+{
+  "source": "audio_manifest_vectors.json",
+  "total_records": 500,
+  "extensions": {
+    ".wav": 494,
+    ".mp3": 6
+  },
+  "path_drives": {
+    "C:": 500
+  },
+  "vector_field_types": {
+    "str": 500
+  },
+  "vector_payload_example": "[Vector dimension: 768]",
+  "note": "Vector field is a human-readable dimension placeholder, not numeric embedding values. Entries are file metadata and do not prove actual existence on Windows E: drive."
+}
