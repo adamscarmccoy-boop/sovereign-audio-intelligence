@@ -1,0 +1,13 @@
+2026-11-11 LEGION Ableton model graph test
+- Python tests: 9 passed, 0 failed
+- TypeScript strict typecheck against beta SDK: passed
+- SDK capability rows in native DuckDB: 250
+- SDK host methods: 126
+- Pydantic-core version: 2.46.5
+- Rust-backed schema validators: 6 (registry, actor edges, four operations)
+- Registered actor edges modeled: 4
+- LLM calls: 0
+- Live actions: MOCK ONLY
+- Original Sovereign lakehouse opened: NO
+- LangGraph execution runtime invoked: NO
+- SDK calls in Ableton beta: NOT YET TESTED
