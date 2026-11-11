@@ -1,0 +1,16 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Sovereign audio search candidate",
+  "type":"object",
+  "properties":{
+    "schema":{"const":"legion.audio.candidate.v1"},
+    "file_path":{"type":"string","pattern":"^[A-Za-z]:\\\\"},
+    "label":{"type":"string","minLength":1},
+    "score":{"type":["number","null"]},
+    "source":{"type":"string"},
+    "analysis_status":{"enum":["discovered_unanalyzed","existing_registry_metadata"]},
+    "available":{"const":true}
+  },
+  "required":["schema","file_path","label","score","source","analysis_status","available"],
+  "additionalProperties":false
+}
