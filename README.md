@@ -62,9 +62,7 @@ The requirements file covers the published Python experiments; it does not insta
 
 GitHub Actions can check repository files on a schedule, create reports, and run tests in a temporary hosted environment. **It is not the local audio workstation** and cannot automatically access the Windows databases, named pipes, licensed audio tools, or private models.
 
-The [operations guide](docs/OPERATIONS_AND_SCHEDULES.md) describes appropriate daily, weekly, and on-demand tasks; security requirements for connecting a machine; and the difference between repository checks and local background services.
-
-The scheduled repository check is deliberately limited to truthful, read-only checks of material that is committed to GitHub. It does not claim to benchmark ONNX inference or run audio mastering.
+The [operations guide](docs/OPERATIONS_AND_SCHEDULES.md) describes optional local maintenance tasks and security requirements. **No scheduled GitHub Actions workflow is installed in this repository.** The project does not currently connect GitHub to the live Windows audio workstation.
 
 ## Next milestones
 
@@ -80,7 +78,11 @@ This repository is public. Do not commit personal file inventories, credentials,
 
 ## Contact
 
-Maintained by **Adam Scar McCoy**. For project inquiries, use the [GitHub profile](https://github.com/adamscarmccoy-boop).
+**Adam McCoy**  
+Email: [adamscarmccoy@gmail.com](mailto:adamscarmccoy@gmail.com)  
+GitHub: [adamscarmccoy-boop](https://github.com/adamscarmccoy-boop)
+
+Music releases and performance credits use the name **AdamScarMcCoy**.
 
 ---
 
