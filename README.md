@@ -1,123 +1,87 @@
----
-title: Sovereign Audio Intelligence & Local Edge AI Pipelines
-description: Local-first audio intelligence architecture, native ONNX/DSP experimentation, and DuckDB/Arrow-based data workflows.
-keywords: [CoreAudio, AVFoundation, Edge AI, CoreML, Local LLM, Sovereign AI, On-Device Inference, Apple Silicon, DuckDB, PyArrow]
-author: Adam Scar McCoy
-category: Software Architecture
----
+# Sovereign Audio Intelligence
 
-# 🔒 Sovereign Audio Intelligence
+**Local music analysis, audio processing, and model-assisted production tools**
 
-> **Local-first cognitive audio research, native inference and reproducible DSP workflows**
+Sovereign Audio Intelligence is an engineering project focused on practical tools for music production and analysis. It brings together audio measurements, model inference, source separation, and local data management. Ableton Live is one supported area of development, not the sole purpose of the project.
 
-[![Architecture: Sovereign Edge](https://img.shields.io/badge/Architecture-Sovereign%20Edge%20AI-purple.svg?style=flat-square)](#)
-[![Inference: Apple Neural Engine](https://img.shields.io/badge/Inference-CoreML%20%2F%20ANE-black.svg?style=flat-square&logo=apple)](#)
-[![Compliance: Zero Data Leakage](https://img.shields.io/badge/Compliance-100%25%20On--Device-green.svg?style=flat-square)](#)
-[![Sovereign Audio CI](https://github.com/adamscarmccoy-boop/sovereign-audio-intelligence/actions/workflows/perf-audit.yml/badge.svg)](https://github.com/adamscarmccoy-boop/sovereign-audio-intelligence/actions)
+The aim is to build a dependable system that can examine an audio recording, choose a documented processing step, run it, and report what changed. Accuracy, repeatability, and understandable results take priority over performance claims.
 
----
+## Project status
 
-## November 12, 2026 — Sovereign Music Engine update
+**Active development — November 2026.** Individual parts of the system have been tested, but the complete automated processing sequence is not yet validated.
 
-The project now includes a [public music-engine architecture and verification checkpoint](docs/SOVEREIGN_MUSIC_ENGINE_ARCHITECTURE_2026-11-12.md), covering distinct generation, Demucs stem separation, acoustic analysis, registry-driven execution, native DSP, and Ableton integration lanes.
+| Area | Current position |
+| --- | --- |
+| Audio analysis | Measured loudness, dynamics, and frequency characteristics; time-based measurements are under review |
+| Source separation | Demucs ONNX has produced four stems from a short audio excerpt |
+| Music generation | Experimental arrangement and sample-selection tools have produced audio |
+| Model evaluation | The original Sovereign Big Brain ONNX model loads and runs in ONNX Runtime |
+| Mastering | A separate processing script has produced a mastered test file; automatic approval by Big Brain is not established |
+| Data management | DuckDB, Lance, Parquet, and JSON registries record models, files, and processing information |
+| Ableton Live | Session inspection and device control are a separate integration area |
 
-**Verified:** the original Sovereign Big Brain ONNX loads and executes via ONNX Runtime with a 64-dimensional input and 12-dimensional DSP output. Separate audio generation, mastering, and stem-separation experiments have also been run.
+The Big Brain model accepts a **64-value input** and returns a **12-value output**. We still need to verify exactly how the correct input is prepared and how the results should be evaluated. The model's output alone is not proof that a master is ready for release.
 
-**Still being validated:** the exact trained 64-D input binding, the stored pre/post-operation acceptance policy, live native executor routing, and full-track autonomous mastering. The model's output is not itself an accept/reject verdict.
+For the technical findings and remaining work, read the [Music Engine architecture and verification report](docs/SOVEREIGN_MUSIC_ENGINE_ARCHITECTURE_2026-11-12.md).
 
-**Scope:** this repository covers Sovereign Music Engine as a whole. Ableton Live remains a production/control integration, not the core inference engine. No private weights, full machine manifests, or audio samples were published as part of this documentation update.
+## How the work is organized
 
----
+**Audio and production.** Separate generation, stem separation, audio analysis, and mastering operations so that their results can be tested independently.
 
-## ⚡ Executive Summary
-**Sovereign Audio Intelligence** explores local-first acoustic analysis, native model inference, and auditable audio-processing workflows. The repository contains implementations, prototypes and architecture checkpoints spanning multiple execution environments. Individual performance, privacy and native-execution claims require independent verification for each configuration.
+**Recorded data.** Reuse existing databases, model inventories, and processing records. Do not rebuild a catalog each time a request is made.
 
----
+**Processing and review.** Record the input, the operation performed, the relevant model and version, the output, and the measurements before and after processing. A process is not considered approved until its evaluation rules have been verified.
 
-## 🚀 Quickstart: How It Runs
+**Ableton integration.** Treat Ableton projects, clips, devices, and automation as an application of the engine rather than a dependency for every feature.
 
-### 1. Ingestion & 37-Dim Acoustic DNA Extraction
-```python
-import duckdb
-import pyarrow.parquet as pq
+## Repository contents
 
-# Connect to local embedded analytical lakehouse
-con = duckdb.connect(database=':memory:')
+- `Sovereign_Audio_Intelligence_Engine.ipynb` — exploratory notebook.
+- `audio_deep_dive_report.parquet` — sample analysis data.
+- `sovereign_audio_deep_dive_langgraph.py` — experimental audio-analysis workflow.
+- `sovereign_kernel.cpp` — native-code experiment.
+- `docs/` — technical documentation and verification notes.
+- `.github/workflows/` — repository checks run by GitHub Actions.
 
-# Query vectorized acoustic feature extractions
-query = """
-SELECT 
-    track_id, 
-    rms_energy, 
-    crest_factor, 
-    spectral_centroid, 
-    lufs_integrated,
-    harmonic_ratio
-FROM 'audio_deep_dive_report.parquet'
-WHERE crest_factor > 3.5
-LIMIT 5;
-"""
-results = con.execute(query).df()
-print("Vectorized Extraction Query Results:\\n", results)
-```
+The repository contains research code and examples. It is **not** a packaged mastering application. Some scripts require local files or services that are not included in this public repository.
 
-### 2. Interactive Jupyter Notebook
+## Getting started
+
+For document review, browse the source files and the [architecture report](docs/SOVEREIGN_MUSIC_ENGINE_ARCHITECTURE_2026-11-12.md).
+
+For local Python experiments, start with a separate environment and review a script's required input files and side effects before running it:
+
 ```bash
-# Launch the Sovereign Audio Intelligence Notebook
-jupyter notebook Sovereign_Audio_Intelligence_Engine.ipynb
+python -m venv .venv
+python -m pip install -r requirements.txt
 ```
 
----
+The requirements file covers the published Python experiments; it does not install the entire workstation system or supply model weights, audio files, or native Windows components.
 
-## 🔬 Deep-Dive Architectural Decoupling
+## Maintenance and scheduled checks
 
-To ensure zero cloud egress while maintaining sub-millisecond throughput, the system decouples signal extraction, vector lakehousing, and agentic intent routing:
+GitHub Actions can check repository files on a schedule, create reports, and run tests in a temporary hosted environment. **It is not the local audio workstation** and cannot automatically access the Windows databases, named pipes, licensed audio tools, or private models.
 
-```mermaid
-graph TD
-    subgraph Raw Audio Ingestion
-        A[Real-Time PCM Audio Stream] --> B[37-Dim Acoustic Math Extractor]
-    end
+The [operations guide](docs/OPERATIONS_AND_SCHEDULES.md) describes appropriate daily, weekly, and on-demand tasks; security requirements for connecting a machine; and the difference between repository checks and local background services.
 
-    subgraph Analytical Storage Layer
-        B -->|Zero-Copy SIMD Batching| C[Fused PyArrow + DuckDB Lakehouse]
-    end
+The scheduled repository check is deliberately limited to truthful, read-only checks of material that is committed to GitHub. It does not claim to benchmark ONNX inference or run audio mastering.
 
-    subgraph Local Edge Intelligence
-        C -->|Sub-150µs Graph Routing| D[LangGraph Sovereign Router]
-        D -->|Quantized CoreML / ONNX| E[Apple Neural Engine / Local LLM]
-        E --> F[Attested Cognitive Insights & Audio DNA]
-    end
-```
+## Next milestones
 
-### 1. 37-Dimensional Acoustic Math Moat
-Unlike superficial black-box audio classifiers, Sovereign Audio extracts physical mathematical truth:
-* **Dynamic Range & Physics:** RMS, Crest Factor, Zero-Crossing Rate, Short-Term LUFS.
-* **Spectral Analysis:** Spectral Centroid, Spread, Flatness, Roll-Off, Harmonic-to-Noise Ratio (HNR).
-* **12-Tone Chromagram:** 12-dimensional tonal energy mapping for harmonic fingerprinting.
+1. Identify the Big Brain model's original input preparation and decision rules from existing records.
+2. Demonstrate one documented **before → processing → after** evaluation on real audio.
+3. Preserve measurements for each section of a track, including time positions.
+4. Add tests based on actual outputs, not hard-coded success messages.
+5. Offer Ableton Live controls once the underlying processing is dependable.
 
-### 2. Columnar Lakehouse (DuckDB + PyArrow)
-* DuckDB and Arrow-compatible data paths support local analysis of Parquet-based acoustic features.
-* Zero-copy and latency outcomes depend on specific interfaces, memory layouts and measured workloads.
+## Data handling and publication
 
-### 3. Intent Routing and Native Inference
-* LangGraph, ONNX Runtime and platform-specific accelerators are candidate or implemented components in different configurations.
-* Privacy and regulatory compliance must be evaluated for each actual deployment; local-first design alone does not establish certification.
+This repository is public. Do not commit personal file inventories, credentials, API keys, proprietary samples, private music projects, or model weights without a deliberate release decision. Workstation-specific configuration and unpublished Kimi work belong in access-controlled storage.
+
+## Contact
+
+Maintained by **Adam Scar McCoy**. For project inquiries, use the [GitHub profile](https://github.com/adamscarmccoy-boop).
 
 ---
 
-## 📊 Performance and evidence
-
-Prior architecture materials included aspirational microsecond-scale routing and broad privacy/compliance claims. These are **not universal verified benchmarks**. See the [November 2026 music-engine checkpoint](docs/SOVEREIGN_MUSIC_ENGINE_ARCHITECTURE_2026-11-12.md) for the precise distinction between executed components and unverified integration steps.
-
----
-
-## 🛠️ Repository Topics & Tech Stack
-`edge-ai` • `local-llm` • `sovereign-ai` • `coreml` • `privacy-by-design` • `on-device-inference` • `apple-silicon` • `audio-intelligence` • `secure-ai`
-
----
-
-## 💼 Commercial Engagements & Audits
-* **Specialization:** Air-gapped AI deployments, on-device audio engineering, and cloud-to-edge migration.
-* **Principal Consultant:** Adam Scar McCoy
-* **Direct Inquiries:** Connect via [GitHub Profile](https://github.com/adamscarmccoy-boop).
+*Last reviewed: November 12, 2026. This README describes the current development state; it is not a certification of performance, commercial readiness, or regulatory compliance.*
