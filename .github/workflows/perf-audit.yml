@@ -1,28 +1,37 @@
-name: ⚡ Audio DSP & Model Latency CI
+name: Repository health check
 
+# This workflow validates committed public files only.
+# It does NOT measure ONNX latency or connect to the music workstation.
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [main]
+    paths:
+      - README.md
+      - docs/**
+      - scripts/check_repository.py
+      - Sovereign_Audio_Intelligence_Engine.ipynb
+      - audio_deep_dive_report.parquet
+      - .github/workflows/perf-audit.yml
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 13 * * 1'
+
+permissions:
+  contents: read
 
 jobs:
-  performance-audit:
-    runs-on: macos-latest
+  repository-check:
+    name: Validate public documentation and sample files
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Checkout Codebase
+      - name: Check out repository
         uses: actions/checkout@v4
-
-      - name: Setup Python Environment
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-
-      - name: Validate DSP Architecture & Bounds
-        run: |
-          echo "Verifying lock-free buffer safety & zero-allocation constraints..."
-          python -c "print('DSP Architecture checks: Passed')"
-          
-      - name: Attestation & Latency Gate
-        run: |
-          echo "Executing performance gate: Sub-10ms buffer verification passed."
+          python-version: '3.11'
+      - name: Run the read-only repository checks
+        run: python scripts/check_repository.py
