@@ -1,6 +1,6 @@
 ---
 title: Sovereign Audio Intelligence & Local Edge AI Pipelines
-description: Hardened production architectures for secure, zero-cloud audio systems, DuckDB SIMD lakehouses, and sub-150µs local inference.
+description: Local-first audio intelligence architecture, native ONNX/DSP experimentation, and DuckDB/Arrow-based data workflows.
 keywords: [CoreAudio, AVFoundation, Edge AI, CoreML, Local LLM, Sovereign AI, On-Device Inference, Apple Silicon, DuckDB, PyArrow]
 author: Adam Scar McCoy
 category: Software Architecture
@@ -8,7 +8,7 @@ category: Software Architecture
 
 # 🔒 Sovereign Audio Intelligence
 
-> **Air-Gapped Cognitive Audio Engine • Zero-Cloud Dependency • Sub-150µs Edge Routing**
+> **Local-first cognitive audio research, native inference and reproducible DSP workflows**
 
 [![Architecture: Sovereign Edge](https://img.shields.io/badge/Architecture-Sovereign%20Edge%20AI-purple.svg?style=flat-square)](#)
 [![Inference: Apple Neural Engine](https://img.shields.io/badge/Inference-CoreML%20%2F%20ANE-black.svg?style=flat-square&logo=apple)](#)
@@ -17,8 +17,20 @@ category: Software Architecture
 
 ---
 
+## November 12, 2026 — Sovereign Music Engine update
+
+The project now includes a [public music-engine architecture and verification checkpoint](docs/SOVEREIGN_MUSIC_ENGINE_ARCHITECTURE_2026-11-12.md), covering distinct generation, Demucs stem separation, acoustic analysis, registry-driven execution, native DSP, and Ableton integration lanes.
+
+**Verified:** the original Sovereign Big Brain ONNX loads and executes via ONNX Runtime with a 64-dimensional input and 12-dimensional DSP output. Separate audio generation, mastering, and stem-separation experiments have also been run.
+
+**Still being validated:** the exact trained 64-D input binding, the stored pre/post-operation acceptance policy, live native executor routing, and full-track autonomous mastering. The model's output is not itself an accept/reject verdict.
+
+**Scope:** this repository covers Sovereign Music Engine as a whole. Ableton Live remains a production/control integration, not the core inference engine. No private weights, full machine manifests, or audio samples were published as part of this documentation update.
+
+---
+
 ## ⚡ Executive Summary
-**Sovereign Audio Intelligence** is an enterprise-grade cognitive audio and edge-inference pipeline. Built for mission-critical applications that mandate **zero telemetry**, complete data privacy, and deterministic latency by executing all DSP and ML inferences locally on bare metal and the Apple Neural Engine.
+**Sovereign Audio Intelligence** explores local-first acoustic analysis, native model inference, and auditable audio-processing workflows. The repository contains implementations, prototypes and architecture checkpoints spanning multiple execution environments. Individual performance, privacy and native-execution claims require independent verification for each configuration.
 
 ---
 
@@ -46,8 +58,7 @@ WHERE crest_factor > 3.5
 LIMIT 5;
 """
 results = con.execute(query).df()
-print("Vectorized Extraction Query Results:
-", results)
+print("Vectorized Extraction Query Results:\\n", results)
 ```
 
 ### 2. Interactive Jupyter Notebook
@@ -85,24 +96,19 @@ Unlike superficial black-box audio classifiers, Sovereign Audio extracts physica
 * **Spectral Analysis:** Spectral Centroid, Spread, Flatness, Roll-Off, Harmonic-to-Noise Ratio (HNR).
 * **12-Tone Chromagram:** 12-dimensional tonal energy mapping for harmonic fingerprinting.
 
-### 2. Zero-Copy SIMD Lakehouse (DuckDB + PyArrow)
-* **Zero Egress Latency:** Analytical queries run in-process over partitioned Parquet columnar files without network sockets.
-* **SIMD Vectorization:** Hardware-accelerated memory scanning allows querying millions of audio feature frames in under 12ms.
+### 2. Columnar Lakehouse (DuckDB + PyArrow)
+* DuckDB and Arrow-compatible data paths support local analysis of Parquet-based acoustic features.
+* Zero-copy and latency outcomes depend on specific interfaces, memory layouts and measured workloads.
 
-### 3. Sub-150µs Intent Routing (LangGraph + CoreML)
-* **Deterministic Flow:** Intent classification runs locally with strict acyclic state graphs.
-* **Air-Gapped Privacy:** Compliant with HIPAA, GDPR, and defense-grade privacy standards—data never leaves the host.
+### 3. Intent Routing and Native Inference
+* LangGraph, ONNX Runtime and platform-specific accelerators are candidate or implemented components in different configurations.
+* Privacy and regulatory compliance must be evaluated for each actual deployment; local-first design alone does not establish certification.
 
 ---
 
-## 📊 Performance Benchmarks
+## 📊 Performance and evidence
 
-| Pipeline Stage | Cloud API Architecture | Sovereign On-Device Pipeline |
-| :--- | :--- | :--- |
-| **Audio Feature Extraction** | 120ms - 350ms (Network Roundtrip) | **1.8ms (Local vDSP / SIMD)** |
-| **Intent Routing Latency** | 450ms - 800ms (Cloud LLM API) | **< 150µs (Local Graph Router)** |
-| **Data Privacy & Egress** | Vulnerable to Third-Party Logging | **100% Air-Gapped / Zero Egress** |
-| **Operating Cost per 1M Queries** | $150.00 - $450.00 | **$0.00 (Zero Marginal Cost)** |
+Prior architecture materials included aspirational microsecond-scale routing and broad privacy/compliance claims. These are **not universal verified benchmarks**. See the [November 2026 music-engine checkpoint](docs/SOVEREIGN_MUSIC_ENGINE_ARCHITECTURE_2026-11-12.md) for the precise distinction between executed components and unverified integration steps.
 
 ---
 
