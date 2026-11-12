@@ -25,14 +25,14 @@ Scheduled jobs run on the repository's default branch. They may start later than
 
 | Frequency | Environment | Task | Evidence | Automatic changes? |
 |---|---|---|---|---|
-| Every push and pull request | GitHub-hosted runner | Validate public documentation links and referenced repository files; confirm public architecture report exists | Action job outcome | No |
-| Weekly (Monday, 13:17 UTC) | GitHub-hosted runner | Repeat read-only repository check; produce a dated summary in job logs | Action job outcome | No |
+| On request, if re-enabled | GitHub-hosted runner | Validate public documentation links and referenced repository files | Action job outcome | No |
+| Optional weekly | GitHub-hosted runner | Review committed documentation and data-file integrity, only if a future workflow is deliberately enabled | Action job outcome | No |
 | Daily, if workstation is running | Local Windows Task Scheduler or controlled daemon | Check services, model-file availability, DB accessibility, and free storage | Local JSON receipt, no personal paths in public logs | No |
 | Weekly, locally | Workstation | Check audio workflow inputs, model hash drift, extraction completeness, and recent failure receipts | Private audit report | No |
 | On request | Workstation | Run one known music operation and Big Brain before/after inference with the **correct trained 64-D input** | Private typed receipt and measured audio delta | Only with explicit approval |
 | On release | GitHub and approved local environment | Run real tests, review dependencies/licensing, review security and performance claims | Versioned release checklist | Approval required |
 
-The weekly GitHub schedule is activated by `.github/workflows/perf-audit.yml`. Local tasks above are a **proposed operating plan**, not automatically deployed Windows tasks.
+**Status as of November 12, 2026:** the GitHub Actions workflow was removed at the maintainer's request. No weekly GitHub job is scheduled in this repository. All time-based jobs in this table are recommendations only; no Windows scheduled task or daemon was installed by this documentation update.
 
 ## Local daemon responsibilities
 
