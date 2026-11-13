@@ -1,4 +1,8 @@
 # Sovereign Audio Intelligence
+![Adam McCoy public GitHub project map](docs/SOVEREIGN_PUBLIC_GITHUB_MAP.svg)
+
+**[Explore all 51 public repositories](docs/SOVEREIGN_PUBLIC_GITHUB_DIRECTORY.md)** · [GitHub profile](https://github.com/adamscarmccoy-boop)
+
 
 **Local music analysis, audio processing, and model-assisted production tools**
 
